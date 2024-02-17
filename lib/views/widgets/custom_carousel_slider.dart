@@ -3,7 +3,8 @@ import 'package:ecommerce/models/announcement_item.dart';
 import 'package:flutter/material.dart';
 
 class CustomCarouselSlider extends StatefulWidget {
-  const CustomCarouselSlider({super.key});
+  final List<AnnouncementModel> announcements;
+  const CustomCarouselSlider({super.key, required this.announcements});
 
   @override
   State<CustomCarouselSlider> createState() => _CustomCarouselSliderState();
@@ -23,7 +24,7 @@ class _CustomCarouselSliderState extends State<CustomCarouselSlider> {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8.0),
       child: CarouselSlider(
-        items: dummyAnnouncements
+        items: widget.announcements
             .map(
               (e) => ClipRRect(
                 borderRadius: BorderRadius.circular(16),

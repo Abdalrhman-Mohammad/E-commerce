@@ -1,6 +1,8 @@
 import 'package:ecommerce/utils/app_colors.dart';
+import 'package:ecommerce/views/pages/cart_page.dart';
 import 'package:ecommerce/views/pages/favorite_page.dart';
 import 'package:ecommerce/views/pages/home_page.dart';
+import 'package:ecommerce/views/pages/profile_page.dart';
 import 'package:ecommerce/views/pages/search_page.dart';
 import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar_v2/persistent-tab-view.dart';
@@ -24,8 +26,8 @@ class _CustomNavBarState extends State<CustomNavBar> {
     return const [
       HomePage(),
       FavoritesPage(),
-      // CartPage(),
-      // ProfilePage(),
+      CartPage(),
+      ProfilePage(),
     ];
   }
 
@@ -45,20 +47,20 @@ class _CustomNavBarState extends State<CustomNavBar> {
         activeColorPrimary: AppColors.primary,
         inactiveColorPrimary: AppColors.grey,
       ),
-      // PersistentBottomNavBarItem(
-      //   inactiveIcon: const Icon(Icons.shopping_cart_outlined),
-      //   icon: const Icon(Icons.shopping_cart),
-      //   title: "Cart",
-      //   activeColorPrimary: AppColors.primary,
-      //   inactiveColorPrimary: AppColors.grey,
-      // ),
-      // PersistentBottomNavBarItem(
-      //   inactiveIcon: const Icon(Icons.person_outline),
-      //   icon: const Icon(Icons.person),
-      //   title: "Profile",
-      //   activeColorPrimary: AppColors.primary,
-      //   inactiveColorPrimary: AppColors.grey,
-      // ),
+      PersistentBottomNavBarItem(
+        inactiveIcon: const Icon(Icons.shopping_cart_outlined),
+        icon: const Icon(Icons.shopping_cart),
+        title: "Cart",
+        activeColorPrimary: AppColors.primary,
+        inactiveColorPrimary: AppColors.grey,
+      ),
+      PersistentBottomNavBarItem(
+        inactiveIcon: const Icon(Icons.person_outline),
+        icon: const Icon(Icons.person),
+        title: "Profile",
+        activeColorPrimary: AppColors.primary,
+        inactiveColorPrimary: AppColors.grey,
+      ),
     ];
   }
 
@@ -76,7 +78,7 @@ class _CustomNavBarState extends State<CustomNavBar> {
         handleAndroidBackButtonPress: true, // Default is true.
         resizeToAvoidBottomInset:
             true, // This needs to be true if you want to move up the screen when keyboard appears. Default is true.
-        stateManagement: false, // Default is true.
+        // stateManagement: false, // Default is true.
         hideNavigationBarWhenKeyboardShows:
             true, // Recommended to set 'resizeToAvoidBottomInset' as true while using this argument. Default is true.
         decoration: NavBarDecoration(

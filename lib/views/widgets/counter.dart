@@ -1,17 +1,14 @@
 import 'package:ecommerce/utils/app_colors.dart';
 import 'package:flutter/material.dart';
 
-class Counter extends StatefulWidget {
-  const Counter({super.key});
+class Counter extends StatelessWidget {
+  final dynamic cubit;
+  final int counter;
+  const Counter({super.key, required this.cubit, required this.counter});
 
-  @override
-  State<Counter> createState() => _CounterState();
-}
-
-class _CounterState extends State<Counter> {
-  int current = 1;
   @override
   Widget build(BuildContext context) {
+    print("reach");
     return Container(
       decoration: BoxDecoration(
         // border: Border.all(
@@ -25,18 +22,23 @@ class _CounterState extends State<Counter> {
         children: [
           IconButton(
             onPressed: () {
-              setState(() {
-                if (current > 1) current--;
-              });
+              cubit.decrementCounter();
+
+              // setState(() {
+              //   if (current > 1) current--;
+              // });
             },
             icon: const Icon(Icons.remove),
           ),
-          Text(current.toString()),
+          Text(counter.toString()),
           IconButton(
-            onPressed: () {
-              setState(() {
-                current++;
-              });
+            onPressed: () async {
+              cubit.incrementCounter();
+              // await Future.delayed(const Duration(seconds: 1));
+
+              // setState(() {
+              //   current++;
+              // });
             },
             icon: const Icon(Icons.add),
           ),

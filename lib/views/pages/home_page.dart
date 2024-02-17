@@ -29,7 +29,7 @@ class _HomePageState extends State<HomePage> {
                 width: 50,
               ),
             ),
-            SizedBox(
+            const SizedBox(
               width: 10,
             ),
             Column(
@@ -60,7 +60,7 @@ class _HomePageState extends State<HomePage> {
                           context,
                           MaterialPageRoute(
                             builder: (_) {
-                              return SearchPage();
+                              return const SearchPage();
                             },
                           ),
                         ),

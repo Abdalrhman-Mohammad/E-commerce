@@ -13,14 +13,12 @@ class ProductItemModel {
   final String description;
   final double price;
   final String category;
-  final ProductSize? size;
   final double averageRate;
 
   ProductItemModel({
     required this.id,
     required this.name,
     required this.imgUrl,
-    this.size,
     this.description =
         'Lorem Ipsum is simply dummy text of the printing and typesetting industry Lorem Ipsum is simply dummy text of the printing and typesetting industry Lorem Ipsum is simply dummy text of the printing and typesetting industry Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
     required this.price,
@@ -47,7 +45,6 @@ class ProductItemModel {
       price: price ?? this.price,
       category: category ?? this.category,
       averageRate: averageRate ?? this.averageRate,
-      size: size ?? this.size,
     );
   }
 }
@@ -85,7 +82,16 @@ List<ProductItemModel> dummyPupularSearch = [
     category: 'Groceries',
   ),
 ];
-List<ProductItemModel> dummyFavorites = [];
+List<ProductItemModel> dummyFavorites = [
+  ProductItemModel(
+    id: '1',
+    name: 'T-shirt',
+    imgUrl:
+        'https://parspng.com/wp-content/uploads/2022/07/Tshirtpng.parspng.com_.png',
+    price: 10,
+    category: 'Clothes',
+  ),
+];
 List<ProductItemModel> dummyProducts = [
   ProductItemModel(
     id: '1',

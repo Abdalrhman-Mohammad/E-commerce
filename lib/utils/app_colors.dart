@@ -9,4 +9,7 @@ class AppColors {
   static const Color red = Colors.red;
   static Color yellow = Colors.orange.withOpacity(0.55);
   static const Color black = Colors.black;
+  static const Color greenBlue = Color.fromRGBO(42, 171, 191, 1);
+  static const Color green = Color.fromRGBO(0, 210, 97, 1);
 }
+//
