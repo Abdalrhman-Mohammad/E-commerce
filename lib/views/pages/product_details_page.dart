@@ -26,17 +26,16 @@ class ProductDetailsPage extends StatelessWidget {
       builder: (context, state) {
         if (state is ProductDetailsError) {
           return Scaffold(
-              body: Center(
-            child: Text(state.error),
-          ));
-        }
-        if (state is ProductDetailsLoading) {
+            body: Center(
+              child: Text(state.error),
+            ),
+          );
+        } else if (state is ProductDetailsLoading) {
           return const Scaffold(
               body: Center(
             child: CircularProgressIndicator.adaptive(),
           ));
-        }
-        if (state is ProductDetailsLoaded) {
+        } else if (state is ProductDetailsLoaded) {
           final ProductItemModel product = state.product;
 
           return Scaffold(
@@ -248,17 +247,42 @@ class ProductDetailsPage extends StatelessWidget {
                                     ),
                               ),
                             ),
-                            BlocBuilder<ProductDetailsCubit,
+                            BlocConsumer<ProductDetailsCubit,
                                 ProductDetailsState>(
                               bloc: productDetailsCubit,
+                              listenWhen: (previous, current) =>
+                                  current is ErrorAddingToCart,
+                              listener: (context, state) {
+                                // if (state is ErrorAddingToCart) {
+                                //   ScaffoldMessenger.of(context).showSnackBar(
+                                //     SnackBar(
+                                //       content: Text(state.error),
+                                //     ),
+                                //   );
+                                // }
+                                if (state is ErrorAddingToCart) {
+                                  showDialog(
+                                      context: context,
+                                      builder: (context) {
+                                        return AlertDialog(
+                                          title: const Text("Alert!"),
+                                          content: Text(state.error),
+                                          actions: [
+                                            TextButton(
+                                                child: const Text("OK"),
+                                                onPressed: () {
+                                                  Navigator.of(context).pop();
+                                                })
+                                          ],
+                                        );
+                                      });
+                                }
+                              },
                               buildWhen: (previous, current) =>
                                   current is AddedToCart ||
-                                  current is AddingToCart ||
-                                  current is ErrorAddingToCart,
+                                  current is AddingToCart,
                               builder: (context, state) {
-                                if (state is ErrorAddingToCart) {
-                                  return Text(state.error);
-                                } else if (state is AddingToCart) {
+                                if (state is AddingToCart) {
                                   return SizedBox(
                                     height: 40,
                                     child: ElevatedButton(
@@ -310,6 +334,7 @@ class ProductDetailsPage extends StatelessWidget {
                                     ),
                                   );
                                 } else {
+                                  if (state is ErrorAddingToCart) {}
                                   return SizedBox(
                                     height: 40,
                                     child: ElevatedButton(

@@ -39,6 +39,9 @@ class ProductDetailsCubit extends Cubit<ProductDetailsState> {
 
   void addToCart(String productId) async {
     try {
+      if (size == null) {
+        throw Exception("Please select a size");
+      }
       emit(AddingToCart());
       final product =
           dummyProducts.firstWhere((element) => element.id == productId);
