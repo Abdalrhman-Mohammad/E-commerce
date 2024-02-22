@@ -1,3 +1,6 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 
 class LinkedAccount {
@@ -5,6 +8,25 @@ class LinkedAccount {
   final String imgLink;
 
   LinkedAccount({required this.provider, required this.imgLink});
+
+  Map<String, dynamic> toMap() {
+    return <String, dynamic>{
+      'provider': provider,
+      'imgLink': imgLink,
+    };
+  }
+
+  factory LinkedAccount.fromMap(Map<String, dynamic> map) {
+    return LinkedAccount(
+      provider: map['provider'] as String,
+      imgLink: map['imgLink'] as String,
+    );
+  }
+
+  String toJson() => json.encode(toMap());
+
+  factory LinkedAccount.fromJson(String source) =>
+      LinkedAccount.fromMap(json.decode(source) as Map<String, dynamic>);
 }
 
 class UserModel {
@@ -18,6 +40,35 @@ class UserModel {
     required this.imgUrl,
     required this.linkedAccounts,
   });
+
+  Map<String, dynamic> toMap() {
+    return <String, dynamic>{
+      'name': name,
+      'email': email,
+      'imgUrl': imgUrl,
+      'linkedAccounts': linkedAccounts.map((x) => x.toMap()).toList(),
+    };
+  }
+
+  factory UserModel.fromMap(Map<String, dynamic> map) {
+    return UserModel(
+      name: map['name'] as String,
+      email: map['email'] as String,
+      imgUrl: map['imgUrl'] as String,
+      linkedAccounts: List<LinkedAccount>.from(
+          (map['linkedAccounts'] as List<dynamic>).map((element) {
+        return LinkedAccount(
+          provider: element['provider']!,
+          imgLink: element['imgLink']!,
+        );
+      })),
+    );
+  }
+
+  String toJson() => json.encode(toMap());
+
+  factory UserModel.fromJson(String source) =>
+      UserModel.fromMap(json.decode(source) as Map<String, dynamic>);
 }
 
 UserModel dummyUser = UserModel(

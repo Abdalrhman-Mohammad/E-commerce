@@ -5,6 +5,7 @@ import 'package:ecommerce/view_models/home_cubit/home_cubit.dart';
 import 'package:ecommerce/view_models/product_details_cubit/product_details_cubit.dart';
 import 'package:ecommerce/view_models/profile_cubit/profile_cubit.dart';
 import 'package:ecommerce/views/pages/custom_nav_bar.dart';
+import 'package:ecommerce/views/pages/login_page.dart';
 import 'package:ecommerce/views/pages/product_details_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -71,6 +72,12 @@ class AppRouter {
             child: const ProductDetailsPage(),
           ),
           settings: settings,
+        );
+      case AppRoutes.loginPage:
+        return MaterialPageRoute(
+          builder: (context) {
+            return const LoginPage();
+          },
         );
       default:
         return MaterialPageRoute(

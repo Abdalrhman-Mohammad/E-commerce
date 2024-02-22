@@ -1,9 +1,16 @@
+import 'package:ecommerce/models/announcement_item.dart';
+import 'package:ecommerce/models/category_item_model.dart';
+import 'package:ecommerce/models/product_item_model.dart';
+import 'package:ecommerce/services/firestore_services.dart';
+import 'package:ecommerce/services/home_services.dart';
+import 'package:ecommerce/utils/api_routes.dart';
 import 'package:ecommerce/utils/app_colors.dart';
 import 'package:ecommerce/views/pages/cart_page.dart';
 import 'package:ecommerce/views/pages/favorite_page.dart';
 import 'package:ecommerce/views/pages/home_page.dart';
 import 'package:ecommerce/views/pages/profile_page.dart';
 import 'package:ecommerce/views/pages/search_page.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar_v2/persistent-tab-view.dart';
 
@@ -20,7 +27,16 @@ class _CustomNavBarState extends State<CustomNavBar> {
   void initState() {
     super.initState();
     _controller = PersistentTabController(initialIndex: 0);
+    // add();
   }
+
+  // void add() {
+  //   dummyProducts.forEach((element) {
+  //     print(element.toString() + "--------------------------------");
+  //     FirestoreService.instance
+  //         .setData(path: ApiRoutes.product(element.id), data: element.toMap());
+  //   });
+  // }
 
   List<Widget> _buildScreens() {
     return const [

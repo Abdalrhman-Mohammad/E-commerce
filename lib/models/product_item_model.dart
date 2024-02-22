@@ -1,3 +1,6 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'dart:convert';
+
 enum ProductSize {
   S,
   M,
@@ -47,6 +50,30 @@ class ProductItemModel {
       averageRate: averageRate ?? this.averageRate,
     );
   }
+
+  Map<String, dynamic> toMap() {
+    return <String, dynamic>{
+      'id': id,
+      'name': name,
+      'imgUrl': imgUrl,
+      'description': description,
+      'price': price,
+      'category': category,
+      'averageRate': averageRate,
+    };
+  }
+
+  factory ProductItemModel.fromMap(Map<String, dynamic> map) {
+    return ProductItemModel(
+      id: map['id'] as String,
+      name: map['name'] as String,
+      imgUrl: map['imgUrl'] as String,
+      description: map['description'] as String,
+      price: map['price'] as double,
+      category: map['category'] as String,
+      averageRate: map['averageRate'] as double,
+    );
+  }
 }
 
 List<ProductItemModel> dummyPupularSearch = [
@@ -84,7 +111,7 @@ List<ProductItemModel> dummyPupularSearch = [
 ];
 List<ProductItemModel> dummyFavorites = [
   ProductItemModel(
-    id: '1',
+    id: '5QmChXvzYCCbxdqUHUDy',
     name: 'T-shirt',
     imgUrl:
         'https://parspng.com/wp-content/uploads/2022/07/Tshirtpng.parspng.com_.png',
@@ -94,7 +121,7 @@ List<ProductItemModel> dummyFavorites = [
 ];
 List<ProductItemModel> dummyProducts = [
   ProductItemModel(
-    id: '1',
+    id: '5QmChXvzYCCbxdqUHUDy',
     name: 'T-shirt',
     imgUrl:
         'https://parspng.com/wp-content/uploads/2022/07/Tshirtpng.parspng.com_.png',
@@ -102,14 +129,14 @@ List<ProductItemModel> dummyProducts = [
     category: 'Clothes',
   ),
   ProductItemModel(
-    id: '2',
+    id: 'j5qMRNJRVZOwRerTMfoo',
     name: 'Black Shoes',
     imgUrl: 'https://pngimg.com/d/men_shoes_PNG7475.png',
     price: 20,
     category: 'Shoes',
   ),
   ProductItemModel(
-    id: '3',
+    id: 'YleAAzL4yCTYZsc7UMLG',
     name: 'Trousers',
     imgUrl:
         'https://www.pngall.com/wp-content/uploads/2016/09/Trouser-Free-Download-PNG.png',
@@ -117,7 +144,7 @@ List<ProductItemModel> dummyProducts = [
     category: 'Clothes',
   ),
   ProductItemModel(
-    id: '4',
+    id: 'jNgwe9IBGN4WsqIZKnJv',
     name: 'Pack of Tomatoes',
     imgUrl:
         'https://parspng.com/wp-content/uploads/2022/12/tomatopng.parspng.com-6.png',
@@ -125,28 +152,28 @@ List<ProductItemModel> dummyProducts = [
     category: 'Groceries',
   ),
   ProductItemModel(
-    id: '5',
+    id: 'BxaqfI4xTR2jOhW4u4Vq',
     name: 'Pack of Potatoes',
     imgUrl: 'https://pngimg.com/d/potato_png2398.png',
     price: 10,
     category: 'Groceries',
   ),
   ProductItemModel(
-    id: '6',
+    id: '5y1qcAJxQUd9qJKy9Orw',
     name: 'Pack of Onions',
     imgUrl: 'https://pngimg.com/d/onion_PNG99213.png',
     price: 10,
     category: 'Groceries',
   ),
   ProductItemModel(
-    id: '7',
+    id: 'ardhZq78ttcSE8Al5umk',
     name: 'Pack of Apples',
     imgUrl: 'https://pngfre.com/wp-content/uploads/apple-43-1024x1015.png',
     price: 10,
     category: 'Fruits',
   ),
   ProductItemModel(
-    id: '8',
+    id: '417iiaiX8L1XQWxtXxpp',
     name: 'Pack of Oranges',
     imgUrl:
         'https://parspng.com/wp-content/uploads/2022/05/orangepng.parspng.com_-1.png',
@@ -154,7 +181,7 @@ List<ProductItemModel> dummyProducts = [
     category: 'Fruits',
   ),
   ProductItemModel(
-    id: '9',
+    id: 'oGEyqZluNFCjvzIeEIdy',
     name: 'Pack of Bananas',
     imgUrl:
         'https://static.vecteezy.com/system/resources/previews/015/100/096/original/bananas-transparent-background-free-png.png',
@@ -162,14 +189,14 @@ List<ProductItemModel> dummyProducts = [
     category: 'Fruits',
   ),
   ProductItemModel(
-    id: '10',
+    id: '619kNjaAkjPByaMOBA6f',
     name: 'Pack of Mangoes',
     imgUrl: 'https://purepng.com/public/uploads/large/mango-tgy.png',
     price: 10,
     category: 'Fruits',
   ),
   ProductItemModel(
-    id: '11',
+    id: 'RkzrM57pRf0ycVqVD05f',
     name: 'Sweet Shirt',
     imgUrl:
         'https://www.usherbrand.com/cdn/shop/products/5uYjJeWpde9urtZyWKwFK4GHS6S3thwKRuYaMRph7bBDyqSZwZ_87x1mq24b2e7_1800x1800.png',
