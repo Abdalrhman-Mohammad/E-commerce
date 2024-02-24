@@ -7,6 +7,7 @@ import 'package:ecommerce/view_models/profile_cubit/profile_cubit.dart';
 import 'package:ecommerce/views/pages/custom_nav_bar.dart';
 import 'package:ecommerce/views/pages/login_page.dart';
 import 'package:ecommerce/views/pages/product_details_page.dart';
+import 'package:ecommerce/views/pages/signup.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -77,6 +78,12 @@ class AppRouter {
         return MaterialPageRoute(
           builder: (context) {
             return const LoginPage();
+          },
+        );
+      case AppRoutes.signupPage:
+        return MaterialPageRoute(
+          builder: (context) {
+            return const Signup();
           },
         );
       default:

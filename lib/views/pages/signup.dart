@@ -5,30 +5,32 @@ import 'package:ecommerce/views/widgets/main_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class LoginPage extends StatefulWidget {
-  const LoginPage({super.key});
+class Signup extends StatefulWidget {
+  const Signup({super.key});
 
   @override
-  State<LoginPage> createState() => _LoginPageState();
+  State<Signup> createState() => _LoginPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _LoginPageState extends State<Signup> {
   final _formKey = GlobalKey<FormState>();
   final _passwordController = TextEditingController();
   final _emailController = TextEditingController();
+  final _usernameController = TextEditingController();
+  late AuthCubit _authCubit;
   bool _visablePassword = false;
-  Future<void> login() async {
+  Future<void> signup() async {
     if (_formKey.currentState!.validate()) {
-      await BlocProvider.of<AuthCubit>(context).signInWIthEmailAnsPassword(
+      await _authCubit.signUpWIthEmailAnsPassword(
         _emailController.text,
         _passwordController.text,
       );
     }
-  } 
+  }
 
   @override
   Widget build(BuildContext context) {
-    final authCubit = BlocProvider.of<AuthCubit>(context);
+    _authCubit = BlocProvider.of<AuthCubit>(context);
     return Scaffold(
       body: SafeArea(
         child: Padding(
@@ -39,7 +41,7 @@ class _LoginPageState extends State<LoginPage> {
               children: [
                 const SizedBox(height: 16),
                 Text(
-                  "Login Account",
+                  "Create Account",
                   style: Theme.of(context)
                       .textTheme
                       .titleLarge!
@@ -47,7 +49,7 @@ class _LoginPageState extends State<LoginPage> {
                 ),
                 const SizedBox(height: 8),
                 Text(
-                  "Please login with registered account",
+                  "Start learning with create your account",
                   style: Theme.of(context)
                       .textTheme
                       .labelMedium!
@@ -59,6 +61,59 @@ class _LoginPageState extends State<LoginPage> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
+                      const Text(
+                        "Username",
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                      const SizedBox(height: 8),
+                      TextFormField(
+                        controller: _usernameController,
+                        decoration: InputDecoration(
+                          prefixIcon: const Padding(
+                            padding: EdgeInsets.all(16.0),
+                            child: Icon(Icons.person_outlined,
+                                color: AppColors.grey),
+                          ),
+                          hintText: "Enter your Username",
+                          hintStyle:
+                              Theme.of(context).textTheme.bodySmall!.copyWith(
+                                    color: AppColors.grey,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                          errorBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(20),
+                            borderSide: BorderSide.none,
+                          ),
+                          enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(20),
+                            borderSide: BorderSide.none,
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(20),
+                            borderSide: BorderSide.none,
+                          ),
+                          disabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(20),
+                            borderSide: BorderSide.none,
+                          ),
+                          fillColor: AppColors.grey2.withOpacity(0.4),
+                          filled: true,
+                        ),
+                        validator: (username) {
+                          if (username == null || username.isEmpty) {
+                            return "Please enter your email or phone number";
+                          }
+
+                          // final bool usernameValid = RegExp(
+                          //         r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+                          //     .hasMatch(username);
+                          // if (!usernameValid) {
+                          //   return "Please enter a valid email or phone number";
+                          // }
+                          return null;
+                        },
+                      ),
+                      const SizedBox(height: 24),
                       const Text(
                         "Email or Phone Number",
                         style: TextStyle(fontWeight: FontWeight.bold),
@@ -182,27 +237,8 @@ class _LoginPageState extends State<LoginPage> {
                     ],
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(top:4.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      TextButton(
-                        onPressed: () {
-                          Navigator.pushNamed(context,AppRoutes.signupPage);
-                        },
-                        child: const Text("Sign Up"),
-                      ),
-                      TextButton(
-                        onPressed: () {},
-                        child: const Text("Forget Password?"),
-                      ),
-                    ],
-                  ),
-                ),
                 const SizedBox(height: 24),
                 BlocConsumer<AuthCubit, AuthState>(
-                  bloc: authCubit,
                   listenWhen: (pervios, current) =>
                       current is AuthFailure || current is AuthSuccess,
                   listener: (context, state) {
@@ -218,7 +254,7 @@ class _LoginPageState extends State<LoginPage> {
                                 onPressed: () {
                                   Navigator.pop(context);
                                 },
-                                child: Text("Ok"),
+                                child: const Text("Ok"),
                               ),
                             ],
                           );
@@ -236,17 +272,17 @@ class _LoginPageState extends State<LoginPage> {
                       current is AuthSuccess,
                   builder: (context, state) {
                     if (state is AuthLoading) {
-                      print("lod");
                       return const MainButton(
                         height: 55,
                         child: CircularProgressIndicator.adaptive(),
                       );
                     } else {
-                      print("not lod");
                       return MainButton(
-                        title: "Sign in",
+                        title: "Sign up",
                         height: 55,
-                        onPressed: login,
+                        onPressed: () async {
+                          await signup();
+                        },
                       );
                     }
                   },
@@ -282,7 +318,7 @@ class _LoginPageState extends State<LoginPage> {
                     onPressed: () {},
                     icon: Image.asset("assets/images/google.png", width: 22),
                     label: Text(
-                      "Sign in with Google",
+                      "Sign up with Google",
                       style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                             fontWeight: FontWeight.bold,
                           ),
@@ -309,7 +345,7 @@ class _LoginPageState extends State<LoginPage> {
                     onPressed: () {},
                     icon: Image.asset("assets/images/facebook.png", width: 22),
                     label: Text(
-                      "Sign in with Facebook",
+                      "Sign up with Facebook",
                       style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                             fontWeight: FontWeight.bold,
                           ),

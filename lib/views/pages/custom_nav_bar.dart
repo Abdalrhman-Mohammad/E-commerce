@@ -5,6 +5,7 @@ import 'package:ecommerce/services/firestore_services.dart';
 import 'package:ecommerce/services/home_services.dart';
 import 'package:ecommerce/utils/api_routes.dart';
 import 'package:ecommerce/utils/app_colors.dart';
+import 'package:ecommerce/utils/routes/app_router.dart';
 import 'package:ecommerce/views/pages/cart_page.dart';
 import 'package:ecommerce/views/pages/favorite_page.dart';
 import 'package:ecommerce/views/pages/home_page.dart';
@@ -76,6 +77,9 @@ class _CustomNavBarState extends State<CustomNavBar> {
         title: "Profile",
         activeColorPrimary: AppColors.primary,
         inactiveColorPrimary: AppColors.grey,
+        routeAndNavigatorSettings: const RouteAndNavigatorSettings(
+          onGenerateRoute: AppRouter.onGenerator,
+        ),
       ),
     ];
   }
@@ -85,7 +89,6 @@ class _CustomNavBarState extends State<CustomNavBar> {
     return Scaffold(
       body: PersistentTabView(
         context,
-
         controller: _controller,
         screens: _buildScreens(),
         items: _navBarsItems(),
