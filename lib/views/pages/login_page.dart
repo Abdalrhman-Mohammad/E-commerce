@@ -24,7 +24,7 @@ class _LoginPageState extends State<LoginPage> {
         _passwordController.text,
       );
     }
-  } 
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -183,13 +183,13 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(top:4.0),
+                  padding: const EdgeInsets.only(top: 4.0),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       TextButton(
                         onPressed: () {
-                          Navigator.pushNamed(context,AppRoutes.signupPage);
+                          Navigator.pushNamed(context, AppRoutes.signupPage);
                         },
                         child: const Text("Sign Up"),
                       ),
@@ -218,7 +218,7 @@ class _LoginPageState extends State<LoginPage> {
                                 onPressed: () {
                                   Navigator.pop(context);
                                 },
-                                child: Text("Ok"),
+                                child: const Text("Ok"),
                               ),
                             ],
                           );
@@ -236,13 +236,11 @@ class _LoginPageState extends State<LoginPage> {
                       current is AuthSuccess,
                   builder: (context, state) {
                     if (state is AuthLoading) {
-                      print("lod");
                       return const MainButton(
                         height: 55,
                         child: CircularProgressIndicator.adaptive(),
                       );
                     } else {
-                      print("not lod");
                       return MainButton(
                         title: "Sign in",
                         height: 55,
@@ -314,6 +312,19 @@ class _LoginPageState extends State<LoginPage> {
                             fontWeight: FontWeight.bold,
                           ),
                     ),
+                  ),
+                ),
+                const Align(
+                  alignment: Alignment.center,
+                  child: Column(
+                    children: [
+                      Text(
+                        "ready account:",
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                      Text("a@a.com"),
+                      Text("aA111@@@"),
+                    ],
                   ),
                 ),
               ],
