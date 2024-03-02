@@ -1,5 +1,7 @@
 import 'package:ecommerce/models/cart_order_model.dart';
 import 'package:ecommerce/models/product_item_model.dart';
+import 'package:ecommerce/services/cart_services.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 part 'product_details_state.dart';
@@ -7,6 +9,9 @@ part 'product_details_state.dart';
 class ProductDetailsCubit extends Cubit<ProductDetailsState> {
   ProductDetailsCubit() : super(ProductDetailsInitial());
   ProductSize? size;
+  CartServicesImpl cartServices = CartServicesImpl();
+  final firebaseAuth = FirebaseAuth.instance;
+
   int quantity = 1;
   void getProductDetails(String elementId) async {
     try {
@@ -37,15 +42,12 @@ class ProductDetailsCubit extends Cubit<ProductDetailsState> {
     emit(QuantityChanged(quantity: quantity));
   }
 
-  void addToCart(String productId) async {
+  void addToCart(ProductItemModel product) async {
     try {
       if (size == null) {
         throw Exception("Please select a size");
       }
       emit(AddingToCart());
-      final product =
-          dummyProducts.firstWhere((element) => element.id == productId);
-      await Future.delayed(const Duration(seconds: 1));
       final order = CartOrdersModel(
         id: DateTime.now().toIso8601String(),
         product: product,
@@ -53,20 +55,21 @@ class ProductDetailsCubit extends Cubit<ProductDetailsState> {
         quantity: quantity,
         size: size!,
       );
-      dummyCartOrders.add(order);
+      cartServices.setCartProducts(firebaseAuth.currentUser!.uid, order);
       emit(AddedToCart());
     } catch (e) {
       emit(ErrorAddingToCart(error: e.toString()));
     }
   }
 
-  void getFromCart() async {
-    try {
-      emit(GetFromCartLoading());
-      await Future.delayed(const Duration(seconds: 1));
-      emit(GetFromCartLoaded(cartOrders: dummyCartOrders));
-    } catch (e) {
-      emit(GetFromCartError(error: e.toString()));
-    }
-  }
+  // void getFromCart() async {
+  //   try {
+  //     emit(GetFromCartLoading());
+  //     await Future.delayed(const Duration(seconds: 1));
+  //     emit(GetFromCartLoaded(cartOrders: dummyCartOrders));
+  //   } catch (e) {
+  //     emit(GetFromCartError(error: e.toString()));
+  //   }
+  // }
+  // moved to cart cubit , it was have call in hometabview and FavoritesPage
 }

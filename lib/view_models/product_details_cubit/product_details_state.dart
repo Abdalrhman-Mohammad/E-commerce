@@ -41,16 +41,17 @@ final class ErrorAddingToCart extends ProductDetailsState {
   ErrorAddingToCart({required this.error});
 }
 
-final class GetFromCartLoading extends ProductDetailsState {}
+// final class GetFromCartLoading extends ProductDetailsState {}
 
-final class GetFromCartLoaded extends ProductDetailsState {
-  final List<CartOrdersModel> cartOrders;
+// final class GetFromCartLoaded extends ProductDetailsState {
+//   final List<CartOrdersModel> cartOrders;
 
-  GetFromCartLoaded({required this.cartOrders});
-}
+//   GetFromCartLoaded({required this.cartOrders});
+// }
 
-final class GetFromCartError extends ProductDetailsState {
-  final String error;
+// final class GetFromCartError extends ProductDetailsState {
+//   final String error;
 
-  GetFromCartError({required this.error});
-}
+//   GetFromCartError({required this.error});
+// }
+ //moved to cart

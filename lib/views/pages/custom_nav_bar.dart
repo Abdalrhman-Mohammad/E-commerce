@@ -6,6 +6,9 @@ import 'package:ecommerce/services/home_services.dart';
 import 'package:ecommerce/utils/api_routes.dart';
 import 'package:ecommerce/utils/app_colors.dart';
 import 'package:ecommerce/utils/routes/app_router.dart';
+import 'package:ecommerce/view_models/cart_cubit/cart_cubit.dart';
+import 'package:ecommerce/view_models/product_details_cubit/product_details_cubit.dart';
+import 'package:ecommerce/views/pages/cart_page%20not%20used%20temp.dart';
 import 'package:ecommerce/views/pages/cart_page.dart';
 import 'package:ecommerce/views/pages/favorite_page.dart';
 import 'package:ecommerce/views/pages/home_page.dart';
@@ -13,6 +16,7 @@ import 'package:ecommerce/views/pages/profile_page.dart';
 import 'package:ecommerce/views/pages/search_page.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:persistent_bottom_nav_bar_v2/persistent-tab-view.dart';
 
 class CustomNavBar extends StatefulWidget {
@@ -40,11 +44,11 @@ class _CustomNavBarState extends State<CustomNavBar> {
   // }
 
   List<Widget> _buildScreens() {
-    return const [
-      HomePage(),
-      FavoritesPage(),
-      CartPage(),
-      ProfilePage(),
+    return [
+      const HomePage(),
+      const FavoritesPage(),
+      const CartPage(),
+      const ProfilePage(),
     ];
   }
 

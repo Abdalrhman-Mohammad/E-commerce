@@ -262,20 +262,22 @@ class ProductDetailsPage extends StatelessWidget {
                                 // }
                                 if (state is ErrorAddingToCart) {
                                   showDialog(
-                                      context: context,
-                                      builder: (context) {
-                                        return AlertDialog(
-                                          title: const Text("Alert!"),
-                                          content: Text(state.error),
-                                          actions: [
-                                            TextButton(
-                                                child: const Text("OK"),
-                                                onPressed: () {
-                                                  Navigator.of(context).pop();
-                                                })
-                                          ],
-                                        );
-                                      });
+                                    context: context,
+                                    builder: (context) {
+                                      return AlertDialog(
+                                        title: const Text("Alert!"),
+                                        content: Text(state.error),
+                                        actions: [
+                                          TextButton(
+                                            child: const Text("OK"),
+                                            onPressed: () {
+                                              Navigator.of(context).pop();
+                                            },
+                                          ),
+                                        ],
+                                      );
+                                    },
+                                  );
                                 }
                               },
                               buildWhen: (previous, current) =>
@@ -334,7 +336,7 @@ class ProductDetailsPage extends StatelessWidget {
                                     ),
                                   );
                                 } else {
-                                  if (state is ErrorAddingToCart) {}
+                                  // if (state is ErrorAddingToCart) {}
                                   return SizedBox(
                                     height: 40,
                                     child: ElevatedButton(
@@ -351,7 +353,7 @@ class ProductDetailsPage extends StatelessWidget {
                                       ),
                                       onPressed: () {
                                         productDetailsCubit
-                                            .addToCart(product.id);
+                                            .addToCart(product);
                                       },
                                       child: Center(
                                         child: Text(
@@ -376,8 +378,8 @@ class ProductDetailsPage extends StatelessWidget {
                   ),
                 ),
                 Positioned(
-                  right: 3,
-                  top: 100,
+                  right: 5,
+                  top: 110,
                   child:
                       BlocBuilder<FavoriteProductCubit, FavoriteProductState>(
                     bloc: favoriteProductCubit,
@@ -405,8 +407,7 @@ class ProductDetailsPage extends StatelessWidget {
                               favoriteProductCubit
                                   .removeFavoriteProduct(product.id);
                             } else {
-                              favoriteProductCubit
-                                  .addFavoriteProduct(product.id);
+                              favoriteProductCubit.addFavoriteProduct(product);
                             }
                           },
                           child: DecoratedBox(

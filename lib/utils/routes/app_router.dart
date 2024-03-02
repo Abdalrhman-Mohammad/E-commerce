@@ -37,12 +37,6 @@ class AppRouter {
               ),
               BlocProvider(
                 create: (context) {
-                  productDetailsCubit.getFromCart();
-                  return productDetailsCubit;
-                },
-              ),
-              BlocProvider(
-                create: (context) {
                   userDataCubit.getUserData();
                   return userDataCubit;
                 },

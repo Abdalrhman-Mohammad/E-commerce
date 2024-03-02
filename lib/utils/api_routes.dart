@@ -1,5 +1,11 @@
 class ApiRoutes {
   static products() => "products/";
+  static favProducts(String uid) => "/users/$uid/favProducts/";
+  static cartProducts(String uid) => "/users/$uid/cartProducts/";
+  static favProduct(String uid, String favProductID) =>
+      "/users/$uid/favProducts/$favProductID";
+  static cartProduct(String uid, String cartProductID) =>
+      "/users/$uid/cartProducts/$cartProductID";
   static product(String productID) => "products/$productID/";
 
   static announcements() => "announcements/";

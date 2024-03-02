@@ -61,7 +61,7 @@ class ProductItem extends StatelessWidget {
                         if (found) {
                           cubit.removeFavoriteProduct(product.id);
                         } else {
-                          cubit.addFavoriteProduct(product.id);
+                          cubit.addFavoriteProduct(product);
                         }
                       },
                       child: DecoratedBox(
@@ -85,7 +85,7 @@ class ProductItem extends StatelessWidget {
                       if (dummyFavorites.contains(product)) {
                         cubit.removeFavoriteProduct(product.id);
                       } else {
-                        cubit.addFavoriteProduct(product.id);
+                        cubit.addFavoriteProduct(product);
                       }
                     },
                     child: DecoratedBox(

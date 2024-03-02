@@ -17,7 +17,7 @@ class HomeTabView extends StatelessWidget {
   Widget build(BuildContext context) {
     final homeCubit = BlocProvider.of<HomeCubit>(context);
     final favoriteProductCubit = BlocProvider.of<FavoriteProductCubit>(context);
-    final productDetailsCubit = BlocProvider.of<ProductDetailsCubit>(context);
+    // final productDetailsCubit = BlocProvider.of<ProductDetailsCubit>(context);
     return SingleChildScrollView(
       child: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -88,7 +88,7 @@ class HomeTabView extends StatelessWidget {
                               .then(
                             (value) {
                               favoriteProductCubit.getFavoriteProducts();
-                              productDetailsCubit.getFromCart();
+                              // productDetailsCubit.getFromCart();
                             },
                           );
                         },

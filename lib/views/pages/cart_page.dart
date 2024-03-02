@@ -1,7 +1,6 @@
 import 'package:ecommerce/models/cart_order_model.dart';
-import 'package:ecommerce/view_models/product_details_cubit/product_details_cubit.dart';
-import 'package:ecommerce/views/widgets/completed_cart_order_item.dart';
-import 'package:ecommerce/views/widgets/on_progress_cart_order_item.dart';
+import 'package:ecommerce/view_models/cart_cubit/cart_cubit.dart';
+import 'package:ecommerce/views/widgets/cart_order.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -15,8 +14,7 @@ class CartPage extends StatefulWidget {
 class _CartPageState extends State<CartPage> {
   @override
   Widget build(BuildContext context) {
-    final ProductDetailsCubit productDetailsCubit =
-        BlocProvider.of<ProductDetailsCubit>(context);
+    final cartCubit = BlocProvider.of<CartCubit>(context);
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -33,29 +31,16 @@ class _CartPageState extends State<CartPage> {
           )
         ],
       ),
-      body: DefaultTabController(
-        length: 2,
-        child: Column(
-          children: [
-            const TabBar(
-              tabs: [
-                Padding(
-                  padding: EdgeInsets.symmetric(vertical: 8.0, horizontal: 14),
-                  child: Text("My Order"),
-                ),
-                Padding(
-                  padding: EdgeInsets.symmetric(vertical: 8.0, horizontal: 14),
-                  child: Text("History"),
-                ),
-              ],
-            ),
-            Expanded(
-              child: Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: TabBarView(
-                  children: [
-                    BlocBuilder<ProductDetailsCubit, ProductDetailsState>(
-                      bloc: productDetailsCubit,
+      body: Column(
+        children: [
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Column(
+                children: [
+                  Expanded(
+                    child: BlocBuilder<CartCubit, CartState>(
+                      bloc: cartCubit,
                       buildWhen: (previous, current) =>
                           current is GetFromCartError ||
                           current is GetFromCartLoaded ||
@@ -72,31 +57,27 @@ class _CartPageState extends State<CartPage> {
                           );
                         }
                         if (state is GetFromCartLoaded) {
-                          return ListView.builder(
-                            itemCount: dummyCartOrders.length,
-                            itemBuilder: (context, index) {
-                              return OnProgressCardOrderItem(
-                                  order: dummyCartOrders[index]);
-                            },
+                          final orders = state.cartOrders;
+                          return RefreshIndicator(
+                            onRefresh: () => cartCubit.getOrdersFromCart(),
+                            child: ListView.builder(
+                              itemCount: orders.length,
+                              itemBuilder: (context, index) {
+                                return CartOrder(order: orders[index]);
+                              },
+                            ),
                           );
                         } else {
                           return const SizedBox();
                         }
                       },
                     ),
-                    ListView.builder(
-                      itemCount: dummyCartOrdersCompleted.length,
-                      itemBuilder: (context, index) {
-                        return CompletedCardOrderItem(
-                            order: dummyCartOrdersCompleted[index]);
-                      },
-                    ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

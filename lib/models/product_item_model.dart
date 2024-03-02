@@ -6,7 +6,35 @@ enum ProductSize {
   M,
   L,
   XL,
-  XXL,
+  XXL;
+
+  static ProductSize fromMap(String size) {
+    if (size == 'S') {
+      return ProductSize.S;
+    } else if (size == 'M') {
+      return ProductSize.M;
+    } else if (size == 'L') {
+      return ProductSize.L;
+    } else if (size == 'XL') {
+      return ProductSize.XL;
+    } else {
+      return ProductSize.XXL;
+    }
+  }
+
+  String toMap(ProductSize size) {
+    if (size == ProductSize.S) {
+      return ProductSize.S.name;
+    } else if (size == ProductSize.M) {
+      return ProductSize.M.name;
+    } else if (size == ProductSize.L) {
+      return ProductSize.L.name;
+    } else if (size == ProductSize.XL) {
+      return ProductSize.XL.name;
+    } else {
+      return ProductSize.XXL.name;
+    }
+  }
 }
 
 class ProductItemModel {
@@ -38,7 +66,6 @@ class ProductItemModel {
     String? category,
     double? averageRate,
     int? quantity,
-    ProductSize? size,
   }) {
     return ProductItemModel(
       id: id ?? this.id,

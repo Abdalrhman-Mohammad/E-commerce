@@ -1,3 +1,6 @@
+import 'package:ecommerce/services/auth_services.dart';
+import 'package:ecommerce/services/favorite_services.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ecommerce/models/product_item_model.dart';
 
@@ -5,35 +8,33 @@ part 'favorite_product_state.dart';
 
 class FavoriteProductCubit extends Cubit<FavoriteProductState> {
   FavoriteProductCubit() : super(FavoriteProductInitial());
+  final favorireServicesImpl = FavorireServicesImpl();
+  // final authServicesImpl=AuthServicesImpl();
+  final firebaseAuth = FirebaseAuth.instance;
 
   void getFavoriteProducts() async {
     try {
       emit(FavoriteProductLoading());
-      await Future.delayed(const Duration(seconds: 1));
-      final List<ProductItemModel> products = dummyFavorites;
+
+      final List<ProductItemModel> products =
+          await favorireServicesImpl.getProducts(firebaseAuth.currentUser!.uid);
       emit(FavoriteProductLoaded(favoriteProducts: products));
     } catch (e) {
       emit(FavoriteProductError(error: e.toString()));
     }
   }
 
-  void addFavoriteProduct(String productId) async {
-    final product =
-        dummyProducts.firstWhere((element) => element.id == productId);
-    dummyFavorites.add(product);
-    // getFavoriteProducts();
-    emit(FavoriteProductLoaded(favoriteProducts: dummyFavorites));
-
-    // emit(ChangeFavoriteProductState(favoriteProducts: dummyFavorites));
+  void addFavoriteProduct(ProductItemModel favProduct) async {
+    favorireServicesImpl.addFavProducts(
+        firebaseAuth.currentUser!.uid, favProduct);
+    // dummyFavorites.add(product);
+    // emit(FavoriteProductLoaded(favoriteProducts: dummyFavorites));
+    getFavoriteProducts();
   }
 
   void removeFavoriteProduct(String productId) async {
-    final product =
-        dummyFavorites.firstWhere((element) => element.id == productId);
-    dummyFavorites.remove(product);
-    // getFavoriteProducts();
-    emit(FavoriteProductLoaded(favoriteProducts: dummyFavorites));
-
-    // emit(ChangeFavoriteProductState(favoriteProducts: dummyFavorites));
+    favorireServicesImpl.removeFavProduct(
+        firebaseAuth.currentUser!.uid, productId);
+    getFavoriteProducts();
   }
 }

@@ -4,7 +4,6 @@ import 'package:ecommerce/utils/app_colors.dart';
 import 'package:ecommerce/utils/routes/app_routes.dart';
 import 'package:ecommerce/view_models/favorite_product_cubit/favorite_product_cubit.dart';
 import 'package:ecommerce/view_models/product_details_cubit/product_details_cubit.dart';
-import 'package:ecommerce/views/widgets/filter_item.dart';
 import 'package:ecommerce/views/widgets/product_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -21,7 +20,7 @@ class _FavoritesPageState extends State<FavoritesPage> {
   @override
   Widget build(BuildContext context) {
     final favoriteProductCubit = BlocProvider.of<FavoriteProductCubit>(context);
-    final productDetailsCubit = BlocProvider.of<ProductDetailsCubit>(context);
+    // final productDetailsCubit = BlocProvider.of<ProductDetailsCubit>(context);
     final cubit = BlocProvider.of<FavoriteProductCubit>(context);
     return Scaffold(
       appBar: AppBar(
@@ -158,7 +157,7 @@ class _FavoritesPageState extends State<FavoritesPage> {
                                   .then(
                                 (value) {
                                   favoriteProductCubit.getFavoriteProducts();
-                                  productDetailsCubit.getFromCart();
+                                  // productDetailsCubit.getFromCart();
                                 },
                               );
                             },
