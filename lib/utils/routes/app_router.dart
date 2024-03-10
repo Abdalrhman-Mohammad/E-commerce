@@ -1,12 +1,15 @@
 import 'package:ecommerce/models/product_item_model.dart';
 import 'package:ecommerce/utils/routes/app_routes.dart';
+import 'package:ecommerce/view_models/checkout_cubit/checkout_cubit.dart';
 import 'package:ecommerce/view_models/favorite_product_cubit/favorite_product_cubit.dart';
 import 'package:ecommerce/view_models/home_cubit/home_cubit.dart';
 import 'package:ecommerce/view_models/product_details_cubit/product_details_cubit.dart';
 import 'package:ecommerce/view_models/profile_cubit/profile_cubit.dart';
+import 'package:ecommerce/views/pages/checkout_page.dart';
 import 'package:ecommerce/views/pages/custom_nav_bar.dart';
 import 'package:ecommerce/views/pages/login_page.dart';
 import 'package:ecommerce/views/pages/product_details_page.dart';
+import 'package:ecommerce/views/pages/profile_page.dart';
 import 'package:ecommerce/views/pages/signup.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -33,12 +36,6 @@ class AppRouter {
                 create: (context) {
                   favoriteProductCubit.getFavoriteProducts();
                   return favoriteProductCubit;
-                },
-              ),
-              BlocProvider(
-                create: (context) {
-                  userDataCubit.getUserData();
-                  return userDataCubit;
                 },
               ),
             ],
@@ -80,6 +77,33 @@ class AppRouter {
             return const Signup();
           },
         );
+      case AppRoutes.checkoutPage:
+        return MaterialPageRoute(
+          builder: (context) {
+            return BlocProvider(
+              create: (context) {
+                final cubit = CheckoutCubit();
+                cubit.getPageData();
+
+                return cubit;
+              },
+              child: const CheckoutPage(),
+            );
+          },
+        );
+      case AppRoutes.profilePage:
+        return MaterialPageRoute(
+          builder: (context) {
+            return BlocProvider(
+              create: (context) {
+                userDataCubit.getUserData();
+                return userDataCubit;
+              },
+              child: const ProfilePage(),
+            );
+          },
+        );
+
       default:
         return MaterialPageRoute(
           builder: (_) => const Scaffold(

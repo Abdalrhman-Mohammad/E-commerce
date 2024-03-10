@@ -1,8 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:ecommerce/utils/routes/app_routes.dart';
-import 'package:ecommerce/view_models/auth_cubit/auth_cubit.dart';
 import 'package:ecommerce/view_models/profile_cubit/profile_cubit.dart';
-import 'package:ecommerce/views/widgets/main_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -12,7 +9,6 @@ class ProfilePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final profileCubit = BlocProvider.of<ProfileCubit>(context);
-    final authCubit = BlocProvider.of<AuthCubit>(context);
     return BlocBuilder<ProfileCubit, ProfileState>(
       bloc: profileCubit,
       buildWhen: (previous, current) =>
@@ -164,13 +160,7 @@ class ProfilePage extends StatelessWidget {
                       ),
                     ),
                   ),
-                  MainButton(
-                    onPressed: () {
-                      authCubit.signOut();
-                      Navigator.pushNamed(context, AppRoutes.loginPage);
-                    },
-                    child: const Text("Sign Out"),
-                  ),
+                 
                 ],
               ),
             ),

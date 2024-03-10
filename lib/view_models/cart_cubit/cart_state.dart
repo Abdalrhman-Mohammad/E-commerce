@@ -8,8 +8,13 @@ final class GetFromCartLoading extends CartState {}
 
 final class GetFromCartLoaded extends CartState {
   final List<CartOrdersModel> cartOrders;
-
-  GetFromCartLoaded({required this.cartOrders});
+  final double subTotal;
+  final double shipping;
+  GetFromCartLoaded({
+    required this.cartOrders,
+    required this.subTotal,
+    required this.shipping,
+  });
 }
 
 final class GetFromCartError extends CartState {
@@ -17,4 +22,3 @@ final class GetFromCartError extends CartState {
 
   GetFromCartError({required this.error});
 }
-  

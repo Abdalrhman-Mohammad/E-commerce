@@ -11,6 +11,7 @@ dependencies:
   cached_network_image: ^3.3.1
   carousel_slider: ^4.2.1
   cloud_firestore: ^4.15.5
+  dotted_dashed_line: ^0.0.3
   firebase_auth: ^4.17.4
   firebase_core: ^2.25.4
   flutter:

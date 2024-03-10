@@ -1,6 +1,3 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'dart:convert';
-
 class AnnouncementModel {
   final String id;
   final String imgUrl;
@@ -20,10 +17,6 @@ class AnnouncementModel {
       imgUrl: map['imgUrl'] as String,
     );
   }
-
-  // String toJson() => json.encode(toMap());
-
-  // factory AnnouncementModel.fromJson(String source) => AnnouncementModel.fromMap(json.decode(source) as Map<String, dynamic>);
 }
 
 List<AnnouncementModel> dummyAnnouncements = [

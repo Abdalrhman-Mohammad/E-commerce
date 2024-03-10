@@ -14,8 +14,11 @@ class CartCubit extends Cubit<CartState> {
       emit(GetFromCartLoading());
       final orders = await cartServices
           .getCartProducts((await authServices.currentUser())!.uid);
-      print(orders);
-      emit(GetFromCartLoaded(cartOrders: orders));
+      final subTotal = orders.fold<double>(
+          0, (sum, curr) => sum + curr.quantity * curr.product.price);
+      final shipping = 6.0;
+      emit(GetFromCartLoaded(
+          cartOrders: orders, subTotal: subTotal, shipping: shipping));
     } catch (e) {
       emit(GetFromCartError(error: e.toString()));
     }
