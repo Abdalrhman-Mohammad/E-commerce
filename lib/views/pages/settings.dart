@@ -1,5 +1,6 @@
 import 'package:ecommerce/utils/routes/app_routes.dart';
 import 'package:ecommerce/view_models/auth_cubit/auth_cubit.dart';
+import 'package:ecommerce/views/widgets/settings_buttons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -33,96 +34,29 @@ class SettingsPage extends StatelessWidget {
                     .bodyLarge!
                     .copyWith(fontWeight: FontWeight.bold),
               ),
-              InkWell(
+              SettingsButton(
+                title: "Edit Profile",
+                icon: Icons.person_outlined,
                 onTap: () {
                   Navigator.of(context, rootNavigator: true)
                       .pushNamed(AppRoutes.profilePage);
                 },
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 16.0),
-                  child: Row(
-                    children: [
-                      const Icon(Icons.person_outlined),
-                      const SizedBox(width: 12),
-                      Text(
-                        "Edit Profile",
-                        style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                              fontWeight: FontWeight.bold,
-                            ),
-                      ),
-                      const Spacer(),
-                      const Icon(Icons.arrow_forward_ios_outlined)
-                    ],
-                  ),
-                ),
               ),
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 16.0),
-                child: Row(
-                  children: [
-                    const Icon(Icons.lock),
-                    const SizedBox(width: 12),
-                    Text(
-                      "Change Password",
-                      style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                            fontWeight: FontWeight.bold,
-                          ),
-                    ),
-                    const Spacer(),
-                    const Icon(Icons.arrow_forward_ios_outlined)
-                  ],
-                ),
+              const SettingsButton(
+                title: "Change Password",
+                icon: Icons.lock,
               ),
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 16.0),
-                child: Row(
-                  children: [
-                    const Icon(Icons.shopping_cart_outlined),
-                    const SizedBox(width: 12),
-                    Text(
-                      "Notifications",
-                      style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                            fontWeight: FontWeight.bold,
-                          ),
-                    ),
-                    const Spacer(),
-                    const Icon(Icons.arrow_forward_ios_outlined)
-                  ],
-                ),
+              const SettingsButton(
+                title: "Notifications",
+                icon: Icons.shopping_cart_outlined,
               ),
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 16.0),
-                child: Row(
-                  children: [
-                    const Icon(Icons.shield_outlined),
-                    const SizedBox(width: 12),
-                    Text(
-                      "Security",
-                      style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                            fontWeight: FontWeight.bold,
-                          ),
-                    ),
-                    const Spacer(),
-                    const Icon(Icons.arrow_forward_ios_outlined)
-                  ],
-                ),
+              const SettingsButton(
+                title: "Security",
+                icon: Icons.shield_outlined,
               ),
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 16.0),
-                child: Row(
-                  children: [
-                    const Icon(Icons.language),
-                    const SizedBox(width: 12),
-                    Text(
-                      "Language",
-                      style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                            fontWeight: FontWeight.bold,
-                          ),
-                    ),
-                    const Spacer(),
-                    const Icon(Icons.arrow_forward_ios_outlined)
-                  ],
-                ),
+              const SettingsButton(
+                title: "Language",
+                icon: Icons.language,
               ),
               Text(
                 "Preferencess",
@@ -131,62 +65,21 @@ class SettingsPage extends StatelessWidget {
                     .titleLarge!
                     .copyWith(fontWeight: FontWeight.bold),
               ),
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 16.0),
-                child: Row(
-                  children: [
-                    const Icon(Icons.shield_outlined),
-                    const SizedBox(width: 12),
-                    Text(
-                      "Legal and Policies",
-                      style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                            fontWeight: FontWeight.bold,
-                          ),
-                    ),
-                    const Spacer(),
-                    const Icon(Icons.arrow_forward_ios_outlined)
-                  ],
-                ),
+              const SettingsButton(
+                title: "Legal and Policies",
+                icon: Icons.shield_outlined,
               ),
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 16.0),
-                child: Row(
-                  children: [
-                    const Icon(Icons.help),
-                    const SizedBox(width: 12),
-                    Text(
-                      "Help and Support",
-                      style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                            fontWeight: FontWeight.bold,
-                          ),
-                    ),
-                    const Spacer(),
-                    const Icon(Icons.arrow_forward_ios_outlined)
-                  ],
-                ),
+              const SettingsButton(
+                title: "Help and Support",
+                icon: Icons.help,
               ),
-              InkWell(
+              SettingsButton(
+                title: "Log Out",
+                icon: Icons.logout_outlined,
                 onTap: () {
                   authCubit.signOut();
                   Navigator.pushNamed(context, AppRoutes.loginPage);
                 },
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 16.0),
-                  child: Row(
-                    children: [
-                      const Icon(Icons.logout_outlined),
-                      const SizedBox(width: 12),
-                      Text(
-                        "Log Out",
-                        style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                              fontWeight: FontWeight.bold,
-                            ),
-                      ),
-                      const Spacer(),
-                      const Icon(Icons.arrow_forward_ios_outlined)
-                    ],
-                  ),
-                ),
               ),
             ],
           ),
