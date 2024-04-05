@@ -1,5 +1,4 @@
 import 'package:dotted_dashed_line/dotted_dashed_line.dart';
-import 'package:ecommerce/models/cart_order_model.dart';
 import 'package:ecommerce/utils/app_colors.dart';
 import 'package:ecommerce/utils/routes/app_routes.dart';
 import 'package:ecommerce/view_models/cart_cubit/cart_cubit.dart';

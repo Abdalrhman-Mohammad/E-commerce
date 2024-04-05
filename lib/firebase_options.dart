@@ -25,7 +25,10 @@ class DefaultFirebaseOptions {
       case TargetPlatform.iOS:
         return ios;
       case TargetPlatform.macOS:
-        return macos;
+        throw UnsupportedError(
+          'DefaultFirebaseOptions have not been configured for macos - '
+          'you can reconfigure this by running the FlutterFire CLI again.',
+        );
       case TargetPlatform.windows:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for windows - '
@@ -67,14 +70,5 @@ class DefaultFirebaseOptions {
     projectId: 'e-commerce-ad710',
     storageBucket: 'e-commerce-ad710.appspot.com',
     iosBundleId: 'com.example.ecommerce',
-  );
-
-  static const FirebaseOptions macos = FirebaseOptions(
-    apiKey: 'AIzaSyAGePwwJ84bHqrBaqR0Cezgkfn9Eqi3uKA',
-    appId: '1:845217057886:ios:f93cca8304e34c4c8638cf',
-    messagingSenderId: '845217057886',
-    projectId: 'e-commerce-ad710',
-    storageBucket: 'e-commerce-ad710.appspot.com',
-    iosBundleId: 'com.example.ecommerce.RunnerTests',
   );
 }

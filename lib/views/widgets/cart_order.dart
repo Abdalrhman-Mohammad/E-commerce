@@ -54,7 +54,27 @@ class CartOrder extends StatelessWidget {
             Positioned(
               bottom: 10,
               left: 10,
-              child: CounterOrderPage(counter: order.quantity, order: order),
+              child: BlocBuilder<CartCubit, CartState>(
+                bloc: cartCubit,
+                buildWhen: (previous, current) =>
+                    (current is CounterChanged &&
+                        current.cartOrder.id == order.id) ||
+                    current is CartInitial ||
+                    (current is ChangingCounter &&
+                        current.cartOrderID == order.id),
+                builder: (context, state) {
+                  // if (state is ChangingCounter) {
+                  //   return const Center(child: CircularProgressIndicator());
+                  // } else
+                  return CounterOrderPage(
+                    counter: state is CounterChanged
+                        ? state.cartOrder.quantity
+                        : order.quantity,
+                    isLoading: state is ChangingCounter,
+                    order: order,
+                  );
+                },
+              ),
             ),
           ],
         ),

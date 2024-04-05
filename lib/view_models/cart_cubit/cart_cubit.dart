@@ -38,11 +38,15 @@ class CartCubit extends Cubit<CartState> {
 
   void incrementCounter(CartOrdersModel cartOrder) async {
     try {
-      // emit(GetFromCartLoading());
+      emit(ChangingCounter(cartOrderID: cartOrder.id));
       await cartServices.incrementCounter(
           (await authServices.currentUser())!.uid, cartOrder);
+      cartOrder = cartOrder.copyWith(
+          quantity: (await cartServices.getCartProduct(
+                  (await authServices.currentUser())!.uid, cartOrder.id))
+              .quantity);
 
-      getOrdersFromCart();
+      emit(CounterChanged(cartOrder: cartOrder));
     } catch (e) {
       emit(GetFromCartError(error: e.toString()));
     }
@@ -50,11 +54,14 @@ class CartCubit extends Cubit<CartState> {
 
   void decrementCounter(CartOrdersModel cartOrder) async {
     try {
-      // emit(GetFromCartLoading());
+      emit(ChangingCounter(cartOrderID:cartOrder.id));
       await cartServices.decrementCounter(
           (await authServices.currentUser())!.uid, cartOrder);
-
-      getOrdersFromCart();
+      cartOrder = cartOrder.copyWith(
+          quantity: (await cartServices.getCartProduct(
+                  (await authServices.currentUser())!.uid, cartOrder.id))
+              .quantity);
+      emit(CounterChanged(cartOrder: cartOrder));
     } catch (e) {
       emit(GetFromCartError(error: e.toString()));
     }

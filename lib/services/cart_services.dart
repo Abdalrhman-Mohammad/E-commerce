@@ -5,6 +5,7 @@ import 'package:ecommerce/utils/api_routes.dart';
 
 abstract class CartServices {
   Future<List<CartOrdersModel>> getCartProducts(String uid);
+  Future<CartOrdersModel> getCartProduct(String uid, String cartProductID);
   Future<void> setCartProducts(String uid, CartOrdersModel cartProduct);
   Future<void> removeCartProducts(String uid, String cartProductID);
   Future<void> incrementCounter(String uid, CartOrdersModel cartProduct);
@@ -39,7 +40,20 @@ class CartServicesImpl implements CartServices {
   }
 
   @override
+  Future<CartOrdersModel> getCartProduct(
+      String uid, String cartProductID) async {
+    return await firestoreService.getDocument<CartOrdersModel>(
+      path: ApiRoutes.cartProduct(uid, cartProductID),
+      builder: (data, documentID) {
+        return CartOrdersModel.fromMap(data);
+      },
+    );
+  }
+
+  @override
   Future<void> decrementCounter(String uid, CartOrdersModel cartProduct) async {
+    // cartProduct = cartProduct.copyWith(quantity: cartProduct.quantity - 1);
+    cartProduct = await getCartProduct(uid, cartProduct.id);
     cartProduct = cartProduct.copyWith(quantity: cartProduct.quantity - 1);
     return await firestoreService.setData(
       path: ApiRoutes.cartProduct(uid, cartProduct.id),
@@ -49,6 +63,8 @@ class CartServicesImpl implements CartServices {
 
   @override
   Future<void> incrementCounter(String uid, CartOrdersModel cartProduct) async {
+    // cartProduct = cartProduct.copyWith(quantity: cartProduct.quantity + 1);
+    cartProduct = await getCartProduct(uid, cartProduct.id);
     cartProduct = cartProduct.copyWith(quantity: cartProduct.quantity + 1);
     return await firestoreService.setData(
       path: ApiRoutes.cartProduct(uid, cartProduct.id),

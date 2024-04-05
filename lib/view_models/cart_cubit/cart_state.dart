@@ -22,3 +22,14 @@ final class GetFromCartError extends CartState {
 
   GetFromCartError({required this.error});
 }
+
+final class CounterChanged extends CartState {
+  final CartOrdersModel cartOrder;
+  CounterChanged({required this.cartOrder});
+}
+final class ChangingCounter extends CartState {
+
+    ChangingCounter({required this.cartOrderID,});
+
+String cartOrderID;
+}

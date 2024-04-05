@@ -5,12 +5,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class CounterOrderPage extends StatelessWidget {
-  final int counter;
+  final int? counter;
   final CartOrdersModel order;
+  final bool isLoading;
   const CounterOrderPage({
     super.key,
-    required this.counter,
+    this.counter,
     required this.order,
+    required this.isLoading,
   });
 
   @override
@@ -32,7 +34,7 @@ class CounterOrderPage extends StatelessWidget {
             },
             icon: const Icon(Icons.remove),
           ),
-          Text(counter.toString()),
+          isLoading == false ? Text(counter.toString()) :const Center(child: CircularProgressIndicator()),
           IconButton(
             onPressed: () async {
               cartCubit.incrementCounter(order);
