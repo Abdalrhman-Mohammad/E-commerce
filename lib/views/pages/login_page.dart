@@ -322,7 +322,7 @@ class _LoginPageState extends State<LoginPage> {
                         "ready account:",
                         style: TextStyle(fontWeight: FontWeight.bold),
                       ),
-                      Text("a@a.com"),
+                      Text("z@z.com"),
                       Text("aA111@@@"),
                     ],
                   ),
